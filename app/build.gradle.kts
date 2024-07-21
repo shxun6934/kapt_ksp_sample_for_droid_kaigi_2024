@@ -2,8 +2,8 @@ plugins {
     alias(libs.plugins.android.application)
     // alias(libs.plugins.compose.compiler) only Kotlin 2.0
     alias(libs.plugins.jetbrains.kotlin.android)
-    alias(libs.plugins.kapt)
-    // alias(libs.plugins.ksp)
+    // alias(libs.plugins.kapt)
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -74,6 +74,6 @@ dependencies {
     implementation(libs.room.ktx)
 
     implementation(project(":view_model_factory"))
-    kapt(project(":view_model_factory"))
-    // ksp(project(":view_model_factory"))
+    // kapt(project(":view_model_factory"))
+    ksp(project(":view_model_factory"))
 }
