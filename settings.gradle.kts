@@ -14,7 +14,7 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Ksp_Sample"
+rootProject.name = "kapt_ksp_Sample"
 
 include(":app")
 include(":db")
