@@ -5,7 +5,7 @@ plugins {
     alias(libs.plugins.android.library) apply false
 
     // compose (only Kotlin 2.0)
-    // alias(libs.plugins.compose.compiler) apply false
+    alias(libs.plugins.compose.compiler) apply false
 
     // kotlin
     alias(libs.plugins.jetbrains.kotlin.android) apply false
