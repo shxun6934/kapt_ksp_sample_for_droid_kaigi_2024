@@ -50,7 +50,7 @@ class ViewModelFactoryProcessorTest {
             resourceOutputDir = dummyFolder.newFolder("app/build/generated/ksp/main/resources")
 
             languageVersion = "2.0.0"
-            apiVersion = "2.0.0-1.0.23"
+            apiVersion = "2.0.0-1.0.22"
         }.build()
 
         val logger = KspGradleLogger(loglevel = KspGradleLogger.LOGGING_LEVEL_INFO)
