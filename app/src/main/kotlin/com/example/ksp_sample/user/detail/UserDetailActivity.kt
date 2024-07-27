@@ -160,7 +160,7 @@ class UserDetailActivity : ComponentActivity() {
                             Column(
                                 modifier = Modifier.padding(20.dp)
                             ) {
-                                var name by remember { mutableStateOf("") }
+                                var name by remember { mutableStateOf(user?.name ?: "") }
 
                                 TextField(
                                     value = name,
