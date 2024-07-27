@@ -6,10 +6,14 @@ import com.example.ksp_sample.KspSampleApplication
 import com.example.ksp_sample.db.dao.UserDao
 import com.example.ksp_sample.db.entity.User
 import com.example.ksp_sample.view_model_factory.ViewModelFactory
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 
 @ViewModelFactory
 class UserListViewModel(app: KspSampleApplication) : ViewModel() {
@@ -36,5 +40,29 @@ class UserListViewModel(app: KspSampleApplication) : ViewModel() {
             initialValue = UiState.Loading
         )
 
-    // TODO: 削除メソッド
+    sealed interface DeleteResult {
+        data object Loading : DeleteResult
+        data object Success : DeleteResult
+        data class Failure(val exception: Throwable) : DeleteResult
+    }
+
+    private val _deleteResult: MutableStateFlow<DeleteResult> = MutableStateFlow(DeleteResult.Loading)
+    val deleteResult: StateFlow<DeleteResult> get() = _deleteResult.asStateFlow()
+
+    fun deleteUser(user: User) {
+        _deleteResult.value = DeleteResult.Loading
+
+        viewModelScope.launch(Dispatchers.IO) {
+            runCatching {
+                userDao.delete(user)
+            }.fold(
+                onSuccess = {
+                    _deleteResult.value = DeleteResult.Success
+                },
+                onFailure = {
+                    _deleteResult.value = DeleteResult.Failure(it)
+                }
+            )
+        }
+    }
 }

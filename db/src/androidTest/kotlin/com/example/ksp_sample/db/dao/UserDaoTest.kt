@@ -39,14 +39,12 @@ class UserDaoTest {
     }
 
     @Test
-    @Throws(IOException::class)
     fun getAllUsers_butNoExist_returnsEmptyList() = runTest {
         val actualUsers = userDao.getAll().first()
         assertEquals(emptyList<User>(), actualUsers)
     }
 
     @Test
-    @Throws(IOException::class)
     fun getAllUsers_returnsAllUsers() = runTest {
         val users = listOf(
             User(1, "test1"),
@@ -62,14 +60,12 @@ class UserDaoTest {
     }
 
     @Test
-    @Throws(IOException::class)
     fun getUserById_butNoExist_returnsNull() = runTest {
         val actualUser = userDao.getById(id = 1).first()
         assertEquals(null, actualUser)
     }
 
     @Test
-    @Throws(IOException::class)
     fun getUserById_returnsUser() = runTest {
         val expectUser = User(1, "test")
         userDao.insert(expectUser)
@@ -79,7 +75,6 @@ class UserDaoTest {
     }
 
     @Test
-    @Throws(IOException::class)
     fun deleteUser_returnsNull() = runTest {
         val expectUser = User(1, "test")
         userDao.insert(expectUser)
@@ -91,7 +86,6 @@ class UserDaoTest {
     }
 
     @Test
-    @Throws(IOException::class)
     fun updateUser_returnsUpdatedUser() = runTest {
         val expectName = "new name"
 

@@ -30,7 +30,7 @@ class CreateUserViewModel(app: KspSampleApplication) : ViewModel() {
 
         viewModelScope.launch(Dispatchers.IO) {
             runCatching {
-                if (name.isBlank()) throw IllegalArgumentException("name is blank")
+                if (name.isBlank()) throw IllegalArgumentException("Name is blank")
 
                 userDao.insert(User(name = name))
             }.fold(

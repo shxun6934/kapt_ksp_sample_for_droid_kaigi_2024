@@ -28,7 +28,7 @@ class UserDetailViewModel(
 
     private val userDao = app.db.userDao()
 
-    val user: StateFlow<User?> get() = userDao.getById(id)
+    val user: StateFlow<User?> = userDao.getById(id)
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.Eagerly,
