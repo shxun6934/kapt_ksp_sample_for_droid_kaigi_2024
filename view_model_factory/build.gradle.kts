@@ -3,7 +3,7 @@ plugins {
 }
 
 dependencies {
-    implementation(libs.symbol.processing.api)
+    // implementation(libs.symbol.processing.api)
 
     // only KSP2
     // testImplementation(libs.junit)
