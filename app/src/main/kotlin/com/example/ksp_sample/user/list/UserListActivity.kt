@@ -5,8 +5,11 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
+import androidx.compose.animation.animateContentSize
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -22,14 +25,21 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SwipeToDismissBox
+import androidx.compose.material3.SwipeToDismissBoxValue
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberSwipeToDismissBoxState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -41,6 +51,7 @@ import com.example.ksp_sample.db.entity.User
 import com.example.ksp_sample.user.create.CreateUserActivity
 import com.example.ksp_sample.ui.theme.KspSampleTheme
 import com.example.ksp_sample.user.detail.UserDetailActivity
+import kotlinx.coroutines.launch
 
 class UserListActivity : ComponentActivity() {
 
@@ -48,6 +59,7 @@ class UserListActivity : ComponentActivity() {
         UserListViewModelFactory(application as KspSampleApplication)
     }
 
+    @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -56,6 +68,7 @@ class UserListActivity : ComponentActivity() {
         setContent {
             KspSampleTheme {
                 val context = LocalContext.current
+                val scope = rememberCoroutineScope()
 
                 Scaffold(
                     floatingActionButton = {
@@ -117,24 +130,50 @@ class UserListActivity : ComponentActivity() {
                                 modifier = Modifier.padding(innerPadding)
                             ) {
                                 items(users) { user ->
-                                    // TODO: 横スワイプで削除
-                                    UserItem(
-                                        modifier = Modifier
-                                            .clickable {
-                                                startActivity(
-                                                    UserDetailActivity.intent(
-                                                        context = context,
-                                                        id = user.id
-                                                    )
+                                    val dismissState = rememberSwipeToDismissBoxState()
+
+                                    SwipeToDismissBox(
+                                        state = dismissState,
+                                        backgroundContent = {
+                                            if (dismissState.currentValue == SwipeToDismissBoxValue.EndToStart) {
+                                                Box(
+                                                    modifier = Modifier
+                                                        .fillMaxSize()
+                                                        .background(color = MaterialTheme.colorScheme.errorContainer)
                                                 )
                                             }
-                                            .padding(20.dp),
-                                        user = user
-                                    )
-                                    HorizontalDivider(
-                                        modifier = Modifier.fillMaxWidth(),
-                                        thickness = 1.dp
-                                    )
+                                        },
+                                        modifier = Modifier.animateContentSize(),
+                                        enableDismissFromStartToEnd = false,
+                                        enableDismissFromEndToStart = true,
+                                    ) {
+                                        UserItem(
+                                            modifier = Modifier
+                                                .clickable {
+                                                    startActivity(
+                                                        UserDetailActivity.intent(
+                                                            context = context,
+                                                            id = user.id
+                                                        )
+                                                    )
+                                                }
+                                                .padding(20.dp),
+                                            user = user
+                                        )
+                                        HorizontalDivider(
+                                            modifier = Modifier.fillMaxWidth(),
+                                            thickness = 1.dp
+                                        )
+                                    }
+
+                                    LaunchedEffect(dismissState.currentValue) {
+                                        if (dismissState.currentValue == SwipeToDismissBoxValue.EndToStart) {
+                                            viewModel.deleteUser(user)
+                                            scope.launch {
+                                                dismissState.reset()
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }
