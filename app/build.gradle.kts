@@ -1,9 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
-    // alias(libs.plugins.compose.compiler) // only Kotlin 2.0
     alias(libs.plugins.jetbrains.kotlin.android)
-    alias(libs.plugins.kapt)
-    // alias(libs.plugins.ksp)
+    alias(libs.plugins.hilt)
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -52,13 +51,20 @@ android {
     }
     // only Kotlin 1.X
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.2"
+        kotlinCompilerExtensionVersion = "1.5.14"
     }
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+}
+
+// ksp's options
+ksp {
+    arg("room.schemaLocation", "$projectDir/schemas")
+    arg("room.incremental", "true")
+    arg("room.generateKotlin", "true")
 }
 
 dependencies {
@@ -70,10 +76,9 @@ dependencies {
     implementation(libs.material3)
     implementation(libs.runtime)
 
-    implementation(project(":db"))
     implementation(libs.room.ktx)
+    ksp(libs.room.compiler)
 
-    implementation(project(":view_model_factory"))
-    kapt(project(":view_model_factory"))
-    // ksp(project(":view_model_factory"))
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
 }

@@ -2,19 +2,20 @@ package com.example.ksp_sample.user.create
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.ksp_sample.KspSampleApplication
+import com.example.ksp_sample.db.AppDatabase
 import com.example.ksp_sample.db.entity.User
-import com.example.ksp_sample.view_model_factory.ViewModelFactory
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-@ViewModelFactory
-class CreateUserViewModel(app: KspSampleApplication) : ViewModel() {
+@HiltViewModel
+class CreateUserViewModel @Inject constructor(db: AppDatabase) : ViewModel() {
 
-    private val userDao = app.db.userDao()
+    private val userDao = db.userDao()
 
     sealed interface InsertResult {
         data object Loading : InsertResult

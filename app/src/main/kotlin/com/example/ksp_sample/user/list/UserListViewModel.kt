@@ -2,10 +2,10 @@ package com.example.ksp_sample.user.list
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.ksp_sample.KspSampleApplication
+import com.example.ksp_sample.db.AppDatabase
 import com.example.ksp_sample.db.dao.UserDao
 import com.example.ksp_sample.db.entity.User
-import com.example.ksp_sample.view_model_factory.ViewModelFactory
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -14,11 +14,12 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-@ViewModelFactory
-class UserListViewModel(app: KspSampleApplication) : ViewModel() {
+@HiltViewModel
+class UserListViewModel @Inject constructor(db: AppDatabase) : ViewModel() {
 
-    private val userDao: UserDao = app.db.userDao()
+    private val userDao: UserDao = db.userDao()
 
     sealed interface UiState {
         data object Loading : UiState
