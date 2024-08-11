@@ -64,11 +64,6 @@ class UserDetailActivity : ComponentActivity() {
         UserDetailViewModelFactory(application as KspSampleApplication, this, intent.extras)
     }
 
-//    // ksp
-//    private val viewModel: UserDetailViewModel by viewModels {
-//        UserDetailViewModelFactory(application as KspSampleApplication)
-//    }
-
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

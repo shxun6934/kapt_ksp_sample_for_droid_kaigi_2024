@@ -2,7 +2,6 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.kapt)
-    // alias(libs.plugins.ksp)
 }
 
 android {
@@ -34,17 +33,9 @@ android {
     }
 }
 
-// ksp's options
-//ksp {
-//    arg("room.schemaLocation", "$projectDir/schemas")
-//    arg("room.incremental", "true")
-//    arg("room.generateKotlin", "true")
-//}
-
 dependencies {
     implementation(libs.room.ktx)
     kapt(libs.room.compiler)
-    // ksp(libs.room.compiler)
 
     androidTestImplementation(libs.room.testing)
     androidTestImplementation(libs.runner)

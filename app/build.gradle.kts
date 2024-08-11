@@ -3,7 +3,6 @@ plugins {
     alias(libs.plugins.compose.compiler) // only Kotlin 2.0
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.kapt)
-    // alias(libs.plugins.ksp)
 }
 
 android {
@@ -50,10 +49,6 @@ android {
     buildFeatures {
         compose = true
     }
-//    // only Kotlin 1.X
-//    composeOptions {
-//        kotlinCompilerExtensionVersion = "1.5.2"
-//    }
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
@@ -75,5 +70,4 @@ dependencies {
 
     implementation(project(":view_model_factory"))
     kapt(project(":view_model_factory"))
-    // ksp(project(":view_model_factory"))
 }

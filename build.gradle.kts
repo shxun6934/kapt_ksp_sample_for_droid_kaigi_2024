@@ -13,7 +13,4 @@ plugins {
 
     // kapt
     alias(libs.plugins.kapt) apply false
-
-    // ksp
-    alias(libs.plugins.ksp) apply false
 }
