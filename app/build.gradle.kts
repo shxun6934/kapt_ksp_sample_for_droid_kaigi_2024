@@ -20,6 +20,14 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+
+        // kapt's options(= annotation processor's options)
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments["room.schemaLocation"] = "$projectDir/schemas"
+                arguments["room.incremental"] = "true"
+            }
+        }
     }
 
     buildTypes {
@@ -62,11 +70,11 @@ android {
 }
 
 // ksp's options
-ksp {
-    arg("room.schemaLocation", "$projectDir/schemas")
-    arg("room.incremental", "true")
-    arg("room.generateKotlin", "true")
-}
+//ksp {
+//    arg("room.schemaLocation", "$projectDir/schemas")
+//    arg("room.incremental", "true")
+//    arg("room.generateKotlin", "true")
+//}
 
 kapt {
     correctErrorTypes = true
@@ -82,8 +90,8 @@ dependencies {
     implementation(libs.runtime)
 
     implementation(libs.room.ktx)
-    ksp(libs.room.compiler)
+    kapt(libs.room.compiler)
 
     implementation(libs.hilt.android)
-    kapt(libs.hilt.compiler)
+    ksp(libs.hilt.compiler)
 }
