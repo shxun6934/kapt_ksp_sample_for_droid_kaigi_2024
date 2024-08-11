@@ -46,18 +46,17 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.ksp_sample.KspSampleApplication
 import com.example.ksp_sample.db.entity.User
 import com.example.ksp_sample.user.create.CreateUserActivity
 import com.example.ksp_sample.ui.theme.KspSampleTheme
 import com.example.ksp_sample.user.detail.UserDetailActivity
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class UserListActivity : ComponentActivity() {
 
-    private val viewModel: UserListViewModel by viewModels {
-        UserListViewModelFactory(application as KspSampleApplication)
-    }
+    private val viewModel: UserListViewModel by viewModels()
 
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {

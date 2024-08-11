@@ -40,10 +40,11 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.ksp_sample.KspSampleApplication
 import com.example.ksp_sample.ui.theme.KspSampleTheme
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class CreateUserActivity : ComponentActivity() {
 
     companion object {
@@ -51,9 +52,7 @@ class CreateUserActivity : ComponentActivity() {
         fun intent(context: Context): Intent = Intent(context, CreateUserActivity::class.java)
     }
 
-    private val viewModel: CreateUserViewModel by viewModels {
-        CreateUserViewModelFactory(application as KspSampleApplication)
-    }
+    private val viewModel: CreateUserViewModel by viewModels()
 
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
