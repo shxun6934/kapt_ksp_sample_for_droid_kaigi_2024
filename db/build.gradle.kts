@@ -1,7 +1,6 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
-    // alias(libs.plugins.kapt)
     alias(libs.plugins.ksp)
 }
 
@@ -13,14 +12,6 @@ android {
         minSdk = 23
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-
-//        // kapt's options(= annotation processor's options)
-//        javaCompileOptions {
-//            annotationProcessorOptions {
-//                arguments["room.schemaLocation"] = "$projectDir/schemas"
-//                arguments["room.incremental"] = "true"
-//            }
-//        }
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
@@ -43,7 +34,6 @@ ksp {
 
 dependencies {
     implementation(libs.room.ktx)
-    // kapt(libs.room.compiler)
     ksp(libs.room.compiler)
 
     androidTestImplementation(libs.room.testing)
