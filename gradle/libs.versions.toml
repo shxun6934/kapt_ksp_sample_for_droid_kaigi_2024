@@ -4,10 +4,8 @@ agp = "8.3.1"
 compose-bom = "2024.04.01"
 junit = "4.13.2"
 junit-ktx = "1.2.1"
-# kotlin = "1.9.0"
 kotlin = "2.0.0"
 kotlinx-coroutines-test = "1.8.1"
-# ksp = "1.9.0-1.0.13"
 ksp = "2.0.0-1.0.22"
 room-ktx = "2.6.1"
 runner = "1.6.1"
@@ -36,5 +34,4 @@ android-library = { id = "com.android.library", version.ref = "agp" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }

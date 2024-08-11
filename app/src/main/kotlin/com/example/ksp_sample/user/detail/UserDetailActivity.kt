@@ -59,11 +59,6 @@ class UserDetailActivity : ComponentActivity() {
             .putExtra(UserDetailViewModel.Args.ID.name, id)
     }
 
-//    // kapt
-//    private val viewModel: UserDetailViewModel by viewModels {
-//        UserDetailViewModelFactory(application as KspSampleApplication, this, intent.extras)
-//    }
-
     // ksp
     private val viewModel: UserDetailViewModel by viewModels {
         UserDetailViewModelFactory(application as KspSampleApplication)
