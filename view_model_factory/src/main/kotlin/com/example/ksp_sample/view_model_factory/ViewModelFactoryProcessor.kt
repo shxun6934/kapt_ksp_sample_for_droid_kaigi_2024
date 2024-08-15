@@ -41,7 +41,7 @@ class ViewModelFactoryProcessor(
             val primaryConstructors = classDeclaration.primaryConstructor!!.parameters
 
             val file = codeGenerator.createNewFile(
-                Dependencies(true, classDeclaration.containingFile!!),
+                Dependencies(false, classDeclaration.containingFile!!),
                 packageName,
                 className
             )
