@@ -69,17 +69,6 @@ android {
     }
 }
 
-// ksp's options
-//ksp {
-//    arg("room.schemaLocation", "$projectDir/schemas")
-//    arg("room.incremental", "true")
-//    arg("room.generateKotlin", "true")
-//}
-
-kapt {
-    correctErrorTypes = true
-}
-
 dependencies {
     implementation(libs.activity.compose)
 
