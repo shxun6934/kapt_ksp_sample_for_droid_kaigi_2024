@@ -1,9 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
-    // alias(libs.plugins.compose.compiler) // only Kotlin 2.0
     alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.hilt)
     alias(libs.plugins.kapt)
-    // alias(libs.plugins.ksp)
 }
 
 android {
@@ -19,6 +18,14 @@ android {
 
         vectorDrawables {
             useSupportLibrary = true
+        }
+
+        // kapt's options(= annotation processor's options)
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments["room.schemaLocation"] = "$projectDir/schemas"
+                arguments["room.incremental"] = "true"
+            }
         }
     }
 
@@ -52,7 +59,7 @@ android {
     }
     // only Kotlin 1.X
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.2"
+        kotlinCompilerExtensionVersion = "1.5.14"
     }
     packaging {
         resources {
@@ -70,10 +77,9 @@ dependencies {
     implementation(libs.material3)
     implementation(libs.runtime)
 
-    implementation(project(":db"))
     implementation(libs.room.ktx)
+    kapt(libs.room.compiler)
 
-    implementation(project(":view_model_factory"))
-    kapt(project(":view_model_factory"))
-    // ksp(project(":view_model_factory"))
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.compiler)
 }

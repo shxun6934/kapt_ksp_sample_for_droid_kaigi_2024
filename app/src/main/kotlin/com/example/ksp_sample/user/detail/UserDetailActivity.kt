@@ -45,9 +45,10 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.ksp_sample.KspSampleApplication
 import com.example.ksp_sample.ui.theme.KspSampleTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class UserDetailActivity : ComponentActivity() {
 
     companion object {
@@ -59,15 +60,7 @@ class UserDetailActivity : ComponentActivity() {
             .putExtra(UserDetailViewModel.Args.ID.name, id)
     }
 
-    // kapt
-    private val viewModel: UserDetailViewModel by viewModels {
-        UserDetailViewModelFactory(application as KspSampleApplication, this, intent.extras)
-    }
-
-//    // ksp
-//    private val viewModel: UserDetailViewModel by viewModels {
-//        UserDetailViewModelFactory(application as KspSampleApplication)
-//    }
+    private val viewModel: UserDetailViewModel by viewModels()
 
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {

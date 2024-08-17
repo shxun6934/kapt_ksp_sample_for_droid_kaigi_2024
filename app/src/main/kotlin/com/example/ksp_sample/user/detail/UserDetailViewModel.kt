@@ -3,9 +3,9 @@ package com.example.ksp_sample.user.detail
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.ksp_sample.KspSampleApplication
+import com.example.ksp_sample.db.AppDatabase
 import com.example.ksp_sample.db.entity.User
-import com.example.ksp_sample.view_model_factory.ViewModelFactory
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -13,11 +13,12 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-@ViewModelFactory
-class UserDetailViewModel(
+@HiltViewModel
+class UserDetailViewModel @Inject constructor(
     saveHandle: SavedStateHandle,
-    app: KspSampleApplication
+    db: AppDatabase
 ) : ViewModel() {
 
     enum class Args {
@@ -26,7 +27,7 @@ class UserDetailViewModel(
 
     private val id = saveHandle.get<Int>(Args.ID.name)!!
 
-    private val userDao = app.db.userDao()
+    private val userDao = db.userDao()
 
     val user: StateFlow<User?> = userDao.getById(id)
         .stateIn(
