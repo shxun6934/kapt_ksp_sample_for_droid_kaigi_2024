@@ -44,7 +44,11 @@ The `view_model_processor` module defines an Annotation Processor or Symbol Proc
 
 ## Slides
 
-Coming soon.
+[KSPの導入・移行を前向きに検討しよう！](https://speakerdeck.com/shxun6934/kspnodao-ru-yi-xing-woqian-xiang-kinijian-tao-siyou)
+
+## YouTube
+
+[DroidKaigi 2024 - [JA] KSPの導入・移行を前向きに検討しよう！ | shxun6934](https://www.youtube.com/watch?v=Ia5eoAVeNTY)
 
 ## References
 
